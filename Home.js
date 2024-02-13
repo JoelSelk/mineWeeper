@@ -3,13 +3,16 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+// Home component
 export default function Home() {
     const navigation = useNavigation();
 
+    // Function to handle navigation to the game screen
     const handlePlay = () => {
         navigation.navigate('Game');
     };
 
+    // Function to handle navigation to the instructions screen
     const handleInstructions = () => {
         navigation.navigate('Instructions');
     };
@@ -25,6 +28,7 @@ export default function Home() {
     );
 }
 
+// Styles for the Home component
 const styles = StyleSheet.create({
     container: {
         flex: 1,

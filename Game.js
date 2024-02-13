@@ -17,6 +17,7 @@ export default function Game({ navigation, route }) {
             setGridSize('');
             setNumMines('');
             setScore(0);
+            setError(false);
         }
     }, [route.params]);
 
@@ -25,9 +26,9 @@ export default function Game({ navigation, route }) {
         const size = parseInt(text);
         if (text === '' || (!isNaN(size) && size >= 4 && size <= 10)) {
             setGridSize(text);
-            setError(false); // Reset error state
+            setError(false);
         } else {
-            setError(true); // Display error if value is outside range
+            setError(true);
         }
     };
 
@@ -36,33 +37,36 @@ export default function Game({ navigation, route }) {
         const num = parseInt(text);
         if (text === '' || (!isNaN(num) && num >= 1 && num < parseInt(gridSize) * parseInt(gridSize))) {
             setNumMines(text);
-            setError(false); // Reset error state
+            setError(false);
         } else {
-            setError(true); // Display error if value is outside range
+            setError(true);
         }
     };
 
     // Function to handle start game
     const handleStartGame = () => {
-        setShowGrid(true);
+        if (gridSize.trim() === '' || numMines.trim() === '') {
+            setError(true);
+        } else {
+            setShowGrid(true);
+        }
     };
 
     // Function to handle quit
     const handleQuit = () => {
-        navigation.navigate('HighScore', { score: score }); // Navigate to HighScore screen with score parameter
+        navigation.navigate('HighScore', { score: score });
     };
 
     // Function to handle clearing a tile
     const handleClearTile = () => {
-        // Update the score
-        setScore((prevScore) => prevScore + 100); // Increment score by 100 for each tile cleared
+        const baseScore = 100;
+        const multiplier = parseInt(numMines);
+        setScore((prevScore) => prevScore + (baseScore * multiplier));
     };
 
     // Function to handle mine hit
     const handleMineHit = () => {
-        // Deduct 100 points for hitting a mine
         setScore((prevScore) => prevScore - 100);
-        // Navigate to HighScore screen with updated score
         navigation.navigate('HighScore', { score: score - 100 });
     };
 
@@ -83,9 +87,9 @@ export default function Game({ navigation, route }) {
                         size={parseInt(gridSize)}
                         numMines={parseInt(numMines)}
                         onClearTile={handleClearTile}
-                        onMineHit={handleMineHit} // Pass handleMineHit function to Grid component
-                        score={score} // Pass score to Grid component
-                        navigation={navigation} // Pass navigation prop to Grid component
+                        onMineHit={handleMineHit}
+                        score={score}
+                        navigation={navigation}
                     />
                     <View style={styles.gameControls}>
                         <Button title="Quit" onPress={handleQuit} />

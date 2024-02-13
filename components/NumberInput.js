@@ -1,6 +1,8 @@
+//numberInput.js
 import React from 'react';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 
+// NumberInput component
 const NumberInput = ({ value, onChange, error, label, gridSize, minePlaceholder }) => {
     const gridArea = gridSize * gridSize; // Calculate the total number of tiles in the grid
     const placeholderText = '4 - 9'; // Placeholder range for grid size
@@ -23,6 +25,7 @@ const NumberInput = ({ value, onChange, error, label, gridSize, minePlaceholder 
     );
 };
 
+// Styles for the NumberInput component
 const styles = StyleSheet.create({
     container: {
         marginBottom: 20,

@@ -1,7 +1,9 @@
+//grid.js
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Dimensions } from 'react-native';
 import Tile from './Tile';
 
+// Grid component
 export default function Grid({ size, numMines, onClearTile, onMineHit, score }) {
     const [mines, setMines] = useState([]);
     const [revealedTiles, setRevealedTiles] = useState([]);
@@ -30,10 +32,10 @@ export default function Grid({ size, numMines, onClearTile, onMineHit, score }) 
     // Function to reveal a tile
     const revealTile = (index) => {
         if (isMineTile(index)) {
-            onMineHit(); // Call the onMineHit callback to handle the mine hit logic in the Game component
+            onMineHit(); 
         } else {
             setRevealedTiles([...revealedTiles, index]);
-            onClearTile(); // Call the onClearTile callback to increase the score
+            onClearTile(); 
         }
     };
 
@@ -50,8 +52,8 @@ export default function Grid({ size, numMines, onClearTile, onMineHit, score }) 
                     isMine={isMineTile(i)}
                     revealed={revealedTiles.includes(i)}
                     onPress={() => revealTile(i)}
-                    onMineHit={onMineHit} // Pass onMineHit callback to Tile component
-                    score={score} // Pass score to Tile component
+                    onMineHit={onMineHit} 
+                    score={score} 
                 />
             );
         }
@@ -65,9 +67,11 @@ export default function Grid({ size, numMines, onClearTile, onMineHit, score }) 
     );
 }
 
+// Styles for the Grid component
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
 });
+

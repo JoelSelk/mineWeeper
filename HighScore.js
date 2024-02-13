@@ -1,3 +1,4 @@
+//highscore.js
 import React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
@@ -8,7 +9,7 @@ export default function HighScore({ route }) {
 
     // Function to handle playing again
     const handlePlayAgain = () => {
-        navigation.navigate('Game', { reset: true }); // Navigate to the Game screen with reset option
+        navigation.navigate('Game', { reset: true });
     };
 
     // Function to handle navigating to home screen
@@ -27,14 +28,14 @@ export default function HighScore({ route }) {
         { name: 'Player 7', score: 3500 },
         { name: 'Player 8', score: 3200 },
         { name: 'Player 9', score: 3000 },
-        { name: 'Player 10', score: score }, // Insert player's score here
+        { name: 'Player 10', score: score },
     ];
 
     return (
         <View style={styles.container}>
-            {/* Your Score */}
+            <Text style={styles.scoreTitle}>Game-Over</Text>
             <Text style={styles.scoreTitle}>Your Score: {score}</Text>
-            {/* Top Ten Scores */}
+
             <View style={styles.scoreboard}>
                 {topTenScores.map((entry, index) => (
                     <Text key={index} style={[styles.scoreText, { fontSize: index < 5 ? 24 - index * 2 : 14 }]}>
@@ -42,7 +43,7 @@ export default function HighScore({ route }) {
                     </Text>
                 ))}
             </View>
-            {/* Buttons */}
+
             <View style={styles.buttonContainer}>
                 <Button title="Play Again" onPress={handlePlayAgain} />
                 <Button title="Home" onPress={handleHome} />
